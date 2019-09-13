@@ -61,9 +61,9 @@ exports.handler = async function(event, context) {
     };
     await iotData.publish(params, function(err, data) {
         if (err) {
-            console.log(`Unable to notify IoT of stories update: ${err}`);
+            console.log(`Error: ${err}`);
         } else {
-            console.log('Successfully notified IoT of stories update');
+            console.log('Successfully notified IoT');
         }
     });
 
@@ -74,8 +74,8 @@ exports.handler = async function(event, context) {
 
 const generateBillsSet = (amount) => {
     const bills = [10, 20, 50, 100];
-    var sets = [];
-    var index = bills.length - 1;
+    const sets = [];
+    const index = bills.length - 1;
     while (amount >= bills[0]) {
         if (amount >= bills[index]) {
             amount -= bills[index];
