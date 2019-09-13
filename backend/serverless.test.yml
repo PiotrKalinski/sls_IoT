@@ -1,0 +1,54 @@
+- name: should return correct array of bills
+  endpoint: {function: processAtmRequest}
+  request:
+    body:
+      amount: 260
+  response:
+    status: 200
+    body:
+      set: [100, 100, 50, 10]
+- name: should throw InvalidArgumentException if amount is less than 0
+  endpoint: {function: processAtmRequest}
+  request:
+    body:
+      amount: -260
+  response:
+    status: 500
+    body:
+      Error: InvalidArgumentException
+- name: should return empty array
+  endpoint: {function: processAtmRequest}
+  request:
+    body:
+      amount: 0
+  response:
+    status: 200
+    body:
+      set: []
+- name: should throw error if payload is invalid
+  endpoint: {function: processAtmRequest}
+  request:
+    body:
+      amount: "asd"
+  response:
+    status: 500
+    body:
+      Error: SchemaNotValid
+- name: should throw error if payload is invalid
+  endpoint: {function: processAtmRequest}
+  request:
+    body:
+      amount: "asd"
+  response:
+    status: 500
+    body:
+      Error: SchemaNotValid
+- name: should throw error if atm cannot withdraw 
+  endpoint: {function: processAtmRequest}
+  request:
+    body:
+      amount: 253
+  response:
+    status: 500
+    body:
+      Error: NoteUnavailableException
